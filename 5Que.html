@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Exercises</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    
+    <!-- Question 1: For Loop -->
+    <section>
+        <h2>1. Pizza Pattern</h2>
+        <p><i class="fa-solid fa-pizza-slice fa-rotate-270" style="color: #ffce1f;"></i> &nbsp;&nbsp; 
+        <button onclick="patternGenerator()">Click here to generate pattern</button></p>
+        <p id="patterns"></p>
+    </section>
+
+    <br><br>
+
+    <!-- Question 2: Nested For Loop -->
+    <section>
+        <h2>2. Multiplication Table</h2>
+        <button onclick="tableGenerator()">Generate 4x4 Multiplication Table</button>
+        <table id="table"></table>
+    </section>
+
+    <br><br>
+
+    <!-- Question 3: Nested If -->
+    <section>
+        <h2>3. Student Grade Checker</h2>
+        <label for="score">Enter score (0-100):</label>
+        <input type="number" id="score" min="0" max="100">
+        <label>
+            <input type="checkbox" id="present"> Present
+        </label>
+        <button onclick="checkGrade()">Check Grade</button>
+        <p id="gradeResult"></p>
+    </section>
+
+    <br><br>
+
+    <!-- Question 4: Try...Catch -->
+    <section>
+        <h2>4. Age Validator</h2>
+        <label for="age">Enter age:</label>
+        <input type="text" id="ageInput">
+        <button onclick="validateAge()">Validate Age</button>
+        <p id="ageResult"></p>
+    </section>
+
+    <br><br>
+
+    <!-- Question 5: RegEx -->
+    <section>
+        <h2>5. Instagram Username Validator</h2>
+        <label for="username">Enter username:</label>
+        <input type="text" id="username">
+        <button onclick="validateUsername()">Validate</button>
+        <p id="usernameResult"></p>
+    </section>
+
+<script>
+    // Question 1: For Loop - Pizza Pattern
+    function patternGenerator() {
+        let j = ''
+        let pattern = ''
+
+        for(let i = 0; i < 5; i++) {
+            j += '<i class="fa-solid fa-pizza-slice fa-rotate-270" style="color: #ffce1f;"></i> &nbsp;&nbsp;'
+            pattern += j + '<br>'
+            document.getElementById('patterns').innerHTML = pattern
+        }
+    }
+
+    // Question 2: Nested For Loop - Multiplication Table
+    function tableGenerator() {
+        let output = "";
+        for (let i = 1; i <= 4; i++) {
+            let row = "";
+            for (let j = 1; j <= 4; j++) {
+                row += `${i}x${j}=${i * j}  `;
+            }
+            output += row + "<br>";
+        }
+        document.getElementById("table").innerHTML = output;
+    }
+
+    // Question 3: Nested If - Student Grade Checker
+    function checkGrade() {
+        const score = parseInt(document.getElementById('score').value);
+        const isPresent = document.getElementById('present').checked;
+        const resultElement = document.getElementById('gradeResult');
+        
+        if (!isPresent) {
+            resultElement.textContent = "Student is absent. No grade evaluation.";
+            return;
+        }
+        
+        if (isNaN(score)) {
+            resultElement.textContent = "Please enter a valid score.";
+            return;
+        }
+        
+        if (score > 90) {
+            resultElement.textContent = "Outstanding";
+        } else if (score >= 70) {
+            resultElement.textContent = "Good";
+        } else if (score >= 50) {
+            resultElement.textContent = "Needs Improvement";
+        } else {
+            resultElement.textContent = "Fail";
+        }
+    }
+
+    // Question 4: Try...Catch - Age Validator
+    function validateAge() {
+        const ageInput = document.getElementById('ageInput').value;
+        const resultElement = document.getElementById('ageResult');
+        
+        try {
+            const age = Number(ageInput);
+            
+            if (isNaN(age)) {
+                throw "Age must be a number";
+            }
+            
+            if (age < 0) {
+                throw "Age cannot be negative";
+            }
+            
+            resultElement.textContent = `Valid age: ${age}`;
+            resultElement.style.color = "green";
+        } catch (error) {
+            resultElement.textContent = `Error: ${error}`;
+            resultElement.style.color = "red";
+        }
+    }
+
+    // Question 5: RegEx - Instagram Username Validator
+    function validateUsername() {
+        const username = document.getElementById('username').value;
+        const resultElement = document.getElementById('usernameResult');
+        
+        // RegEx pattern: starts with letter, contains letters/numbers/./_, 4-15 chars
+        const instagramRegex = /^[a-zA-Z][a-zA-Z0-9._]{3,14}$/;
+        
+        if (instagramRegex.test(username)) {
+            resultElement.textContent = `"${username}" is a valid Instagram username!`;
+            resultElement.style.color = "green";
+        } else {
+            resultElement.textContent = `"${username}" is NOT a valid Instagram username.`;
+            resultElement.style.color = "red";
+        }
+    }
+</script>
+</html>
